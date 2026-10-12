@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Crypto Radar — segnali live</title>
+<meta name="description" content="Segnali di entrata e uscita su token AI (TAO, AKT, RENDER, IO, VIRTUAL, ATH, GNK, TRAC, RLC) da trigger di prezzo, derivati, on-chain, catalizzatori e macro.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <h1>AI Crypto Radar</h1>
+    <p class="sub">Segnali di entrata e uscita su nove token AI, da trigger di prezzo, derivati, on-chain, catalizzatori e macro.</p>
+  </div>
+  <dl class="macro" id="macro">
+    <div><dt>BTC</dt><dd id="m-btc">…</dd></div>
+    <div><dt>Fear &amp; Greed</dt><dd id="m-fg">…</dd></div>
+    <div><dt>Dominance BTC</dt><dd id="m-dom">…</dd></div>
+    <div><dt>Ultima scansione</dt><dd id="m-scan">…</dd></div>
+    <div><dt>Prezzi</dt><dd id="m-live"><span class="pulse" aria-hidden="true"></span><span id="m-live-t">collegamento…</span></dd></div>
+  </dl>
+</header>
+
+<main>
+  <section class="summary" aria-live="polite">
+    <p id="summary">Carico i segnali…</p>
+  </section>
+
+  <section class="board" aria-labelledby="h-board">
+    <div class="sec-head">
+      <h2 id="h-board">Quadro segnali</h2>
+      <p class="hint">Clicca un token per vedere i trigger. La rotaia va dall'invalidazione (sinistra) al breakout (destra); la fascia è la zona d'ingresso.</p>
+    </div>
+    <div class="filters" role="group" aria-label="Filtra per stato">
+      <button class="chip on" data-f="tutti">Tutti</button>
+      <button class="chip" data-f="attivi">Solo segnali attivi</button>
+      <button class="chip" data-f="core">Solo paniere core</button>
+    </div>
+    <div id="rows" class="rows"></div>
+  </section>
+
+  <section aria-labelledby="h-cal">
+    <div class="sec-head">
+      <h2 id="h-cal">Calendario catalizzatori</h2>
+      <p class="hint">Upgrade, unlock, voti di governance e listing. Gli unlock tolgono un punto al segnale nei tre giorni precedenti; il taglio delle emissioni di Render ne aggiunge uno nei dieci giorni precedenti.</p>
+    </div>
+    <div class="cal-ctl">
+      <label>Token <select id="cal-tok"><option value="">tutti</option></select></label>
+      <label><input type="checkbox" id="cal-past"> mostra eventi passati</label>
+    </div>
+    <ol id="cal" class="cal"></ol>
+  </section>
+
+  <section aria-labelledby="h-log">
+    <div class="sec-head">
+      <h2 id="h-log">Storico segnali</h2>
+      <p class="hint">Ogni segnale di acquisto apre una posizione simulata da 100 $. Si chiude su segnale di uscita, stop (invalidazione o -15%), trailing 12% dopo +25%, oppure dopo 30 giorni.</p>
+    </div>
+    <div id="paper" class="paper"></div>
+    <div class="tbl-wrap"><table class="log" id="log">
+      <thead><tr><th>Apertura</th><th>Token</th><th>Segnale</th><th class="n">Prezzo</th><th class="n">Ultimo</th><th class="n">Rend.</th><th class="n">MFE</th><th class="n">MAE</th><th>Esito</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+  </section>
+
+  <section class="method" aria-labelledby="h-met">
+    <h2 id="h-met">Come nasce un segnale</h2>
+    <div class="cols">
+      <div>
+        <h3>Il punteggio</h3>
+        <p>Ogni componente aggiunge o toglie un punto: trend (EMA20/EMA50 giornaliere), momentum (RSI14 sotto 30 o sopra 75), volume anomalo, livelli (zona d'ingresso, breakout, invalidazione −2), derivati (funding e open interest), on-chain (flussi verso gli exchange, holder, supply, spesa sulla rete), catalizzatori e macro (BTC sopra o sotto EMA50, Fear &amp; Greed).</p>
+      </div>
+      <div>
+        <h3>Gli stati</h3>
+        <p><b class="st st-ENTRATA">Entrata</b> punteggio ≥ 3 sui token core. <b class="st st-ACCUMULO">Accumulo</b> prezzo in zona e punteggio ≥ 1 sui core. <b class="st st-SETUP">Setup tattico</b> punteggio ≥ 4 su token fuori dal paniere. <b class="st st-RIDUCI">Riduci</b> punteggio ≤ −2. <b class="st st-USCITA">Uscita</b> punteggio ≤ −3 o prezzo sotto invalidazione. Il resto è <b class="st st-ATTESA">Attesa</b>.</p>
+      </div>
+      <div>
+        <h3>Fonti e limiti</h3>
+        <p>Prezzi live da Coinbase nel browser; ogni 15 minuti GitHub Actions legge Coinbase, Kraken, DefiLlama, Hyperliquid, OKX, Blockscout, Solana, Akash, il nodo Gonka e GitHub. Nessuna API a pagamento: i flussi on-chain coprono solo le ultime 50 transazioni e gli exchange etichettati. Il prezzo live che rompe un livello va confermato dalla scansione successiva.</p>
+      </div>
+    </div>
+    <p class="disclaimer">Strumento di analisi sistematica, non consulenza finanziaria personalizzata. Nessun segnale è una certezza: senza convergenza dei trigger la risposta corretta è non operare.</p>
+  </section>
+</main>
+
+<footer class="foot">
+  <p>Dati: Coinbase, Kraken, DefiLlama, Hyperliquid, OKX, Blockscout, Solana RPC, Akash Console, Gonka, GitHub, alternative.me, CoinPaprika. Orari in Europe/Zurich. <a href="https://github.com/onlywave/ai-crypto-radar">Codice e metodo su GitHub</a>.</p>
+</footer>
+
+<template id="tpl-row">
+  <article class="row" tabindex="0">
+    <button class="row-main" aria-expanded="false">
+      <span class="tk"><b class="sym"></b><span class="nm"></span></span>
+      <span class="px"><span class="price"></span><span class="chg"></span></span>
+      <span class="state"><b class="st"></b><span class="live-flag"></span></span>
+      <span class="score"><span class="score-n"></span><span class="score-bar"><i></i></span></span>
+      <span class="rail" aria-hidden="true"><span class="zone"></span><span class="mark"></span></span>
+      <span class="why"></span>
+    </button>
+    <div class="detail" hidden></div>
+  </article>
+</template>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
