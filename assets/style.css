@@ -157,7 +157,7 @@ table.log .n{text-align:right}
 .tier-h{font-weight:700;font-stretch:105%}
 .tier-h small{display:block;font-weight:400;color:var(--muted);font-size:12px;font-stretch:100%}
 .tier-list{display:grid;gap:8px}
-.tier-item{display:grid;grid-template-columns:72px 1fr 1fr 130px;gap:4px 16px;font-size:13px;align-items:baseline}
+.tier-item{display:grid;grid-template-columns:84px 1fr 1fr 150px;gap:4px 16px;font-size:13px;align-items:baseline}
 .tier-item .tsym{font-weight:800;font-stretch:115%;font-size:15px}
 .tier-item .lab{display:block;font-size:11px;color:var(--muted)}
 .tier-item .kr{font-size:12px;color:var(--muted)}

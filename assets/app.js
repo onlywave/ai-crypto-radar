@@ -289,7 +289,8 @@
       if (oc.afflussi_exchange_usd != null) kv(dl3, `Flussi exchange (${oc.finestra_ore ?? "?"}h)`, `in ${fmtUsd(oc.afflussi_exchange_usd)} · out ${fmtUsd(oc.deflussi_exchange_usd)}`);
       if (oc.partecipanti != null) { kv(dl3, "Partecipanti rete", `${oc.partecipanti} (${fmtPct(oc.partecipanti_chg24_pct)})`); }
     } else kv(dl3, "On-chain", t.sym === "TAO" ? "nessuna fonte gratuita senza chiave" : "non disponibile in questa scansione");
-    if (t.fees && t.fees.ricavi_annui_usd != null) kv(dl3, "Ricavi DefiLlama (annui, da 30g)", fmtUsd(t.fees.ricavi_annui_usd));
+    if (t.fees && t.fees.ricavi_annui_usd) kv(dl3, "Ricavi DefiLlama (annui, da 30g)", fmtUsd(t.fees.ricavi_annui_usd));
+    else if (t.fees && t.fees.fee_30g_usd) kv(dl3, "Spesa DefiLlama (annua, da 30g)", fmtUsd(t.fees.fee_30g_usd * 365 / 30));
     c3.append(dl3);
     if (oc && oc.whale && oc.whale.length) {
       const w = el("ul", "whales");
@@ -379,7 +380,7 @@
     const stop = p * (1 - dist), inv = t.levels.invalid;
     const out = $("#calc-out"); out.textContent = "";
     const add = (k, v) => { const d = el("div", null, k); d.prepend(el("b", null, v)); out.append(d); };
-    add("Acquisto spot", fmtUsd(pos));
+    add("Acquisto spot", nf(0).format(pos) + " $");
     add("Distanza dello stop", nf(2).format(dist * 100) + "%");
     add("Prezzo di riferimento", fmtPrice(p) + " $");
     add("Stop dal budget", fmtPrice(stop) + " $");
