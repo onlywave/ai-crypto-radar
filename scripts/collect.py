@@ -637,6 +637,11 @@ def main():
         elif t == "erc20":
             o = tok["onchain"]
             oc = erc20(o["explorer"], o["address"], o["decimals"], price)
+            if (not oc or oc.get("holder") is None) and o.get("fallback"):
+                fb = o["fallback"]
+                oc = erc20(fb["explorer"], fb["address"], fb["decimals"], price)
+                if oc:
+                    oc["catena"] = "Ethereum (fallback)"
             if oc and oc.get("holder") is not None:
                 oc["holder_chg7_pct"] = pct(oc["holder"], hist_value_ago(sym, "holders", 24 * 7))
                 oc["holder_chg24_pct"] = pct(oc["holder"], hist_value_ago(sym, "holders", 24))
