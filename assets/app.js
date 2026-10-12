@@ -164,7 +164,8 @@
       const sig = t.segnale;
       const stEl = $(".st", node); stEl.className = stClass(sig.stato); stEl.textContent = STATE_LABEL[sig.stato] || sig.stato;
       const sc = sig.score;
-      $(".score-n", node).textContent = sc == null ? "—" : (sc > 0 ? "+" : "") + sc + ` · copertura ${sig.copertura}%`;
+      $(".score-n", node).textContent = sc == null ? "—" : (sc > 0 ? "+" : "") + sc;
+      $(".score-n", node).title = `Punteggio ${sc}, copertura dati ${sig.copertura}%`;
       const bar = $(".score-bar i", node);
       if (sc != null) {
         const w = Math.min(Math.abs(sc), 6) / 6 * 50;
@@ -190,7 +191,10 @@
       const pe = $(".price", node);
       pe.textContent = fmtPrice(lp) + " $";
       pe.classList.remove("flash-up", "flash-dn");
-      if (live[t.sym] && live[t.sym].dir) pe.classList.add(live[t.sym].dir > 0 ? "flash-up" : "flash-dn");
+      if (live[t.sym] && live[t.sym].dir && Date.now() - live[t.sym].t < 3000) {
+        pe.classList.add(live[t.sym].dir > 0 ? "flash-up" : "flash-dn");
+        setTimeout(() => pe.classList.remove("flash-up", "flash-dn"), 1500);
+      }
       const ref = t.mercato.last_close;
       const ch = ref ? (lp / ref - 1) * 100 : t.mercato.chg24;
       const ce = $(".chg", node); ce.textContent = fmtPct(ch) + " 24h"; ce.className = "chg " + (ch > 0 ? "up" : ch < 0 ? "dn" : "");

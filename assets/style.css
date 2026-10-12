@@ -60,14 +60,14 @@ h2{margin:0;font-size:20px;font-weight:700;font-stretch:110%}
 .row{border-bottom:1px solid var(--rule);background:var(--panel)}
 .row:nth-child(even){background:color-mix(in srgb,var(--panel) 92%,var(--rule-2))}
 .row-main{all:unset;box-sizing:border-box;display:grid;width:100%;cursor:pointer;align-items:center;gap:8px 18px;padding:12px 14px;
-  grid-template-columns:minmax(110px,1.1fr) minmax(110px,1fr) minmax(130px,1.1fr) 90px minmax(180px,2fr) minmax(200px,2.6fr)}
+  grid-template-columns:minmax(110px,1.1fr) minmax(110px,1fr) minmax(130px,1.1fr) 64px minmax(180px,2fr) minmax(200px,2.6fr)}
 .row-main:hover{background:color-mix(in srgb,var(--live) 5%,transparent)}
 .row-main:focus-visible{outline:2px solid var(--live);outline-offset:-2px}
 .tk{display:flex;flex-direction:column}
 .sym{font-weight:800;font-stretch:115%;font-size:18px;letter-spacing:.01em}
 .nm{font-size:12px;color:var(--muted)}
 .px{display:flex;flex-direction:column}
-.price{font-weight:600;font-size:17px;font-stretch:90%}
+.price{font-weight:600;font-size:17px;font-stretch:90%;transition:color .4s}
 .price.flash-up{color:var(--buy)} .price.flash-dn{color:var(--exit)}
 .chg{font-size:12px}
 .up{color:var(--buy)} .dn{color:var(--exit)}
@@ -80,7 +80,7 @@ h2{margin:0;font-size:20px;font-weight:700;font-stretch:110%}
 .live-flag{font-size:11px;color:var(--live);font-weight:600}
 .live-flag.bad{color:var(--exit)}
 .score{display:flex;flex-direction:column;gap:4px}
-.score-n{font-weight:700;font-stretch:90%}
+.score-n{font-weight:700;font-stretch:90%;font-size:17px}
 .score-bar{position:relative;height:6px;background:var(--rule-2);border-radius:3px;overflow:hidden}
 .score-bar::after{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--muted)}
 .score-bar i{position:absolute;top:0;bottom:0;border-radius:3px}
