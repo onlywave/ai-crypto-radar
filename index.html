@@ -4,17 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AI Crypto Radar — segnali live</title>
-<meta name="description" content="Segnali di entrata e uscita su token AI (TAO, AKT, RENDER, IO, VIRTUAL, ATH, GNK, TRAC, RLC) da trigger di prezzo, derivati, on-chain, catalizzatori e macro.">
+<meta name="description" content="Nove token AI valutati in due tempi: la tesi economica (dal cliente al possessore del token) e il momento d'ingresso (prezzo, derivati, on-chain, catalizzatori, macro).">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=3">
+<link rel="stylesheet" href="assets/style.css?v=4">
 </head>
 <body>
 <header class="top">
   <div class="brand">
     <h1>AI Crypto Radar</h1>
-    <p class="sub">Segnali di entrata e uscita su nove token AI, da trigger di prezzo, derivati, on-chain, catalizzatori e macro.</p>
+    <p class="sub">Nove token AI valutati in due tempi: prima se il progetto merita capitale, poi se è il momento di entrare o di uscire.</p>
   </div>
   <dl class="macro" id="macro">
     <div><dt>BTC</dt><dd id="m-btc">…</dd></div>
@@ -26,27 +26,58 @@
 </header>
 
 <main>
+  <section class="howto" aria-labelledby="h-how">
+    <h2 id="h-how" class="vh">Come leggere questa pagina</h2>
+    <ol class="steps">
+      <li><b>La fascia</b> dice se il progetto merita capitale. Segue i soldi: un cliente paga un servizio, una parte resta al protocollo, una regola la porta al token. Cambia lentamente, con i dati trimestrali.</li>
+      <li><b>Il segnale</b> dice se è il momento. Si aggiorna ogni 15 minuti con prezzo, derivati, dati on-chain, calendario e mercato. Si compra solo in prima fascia; la seconda ammette al massimo un setup tattico.</li>
+      <li><b>Il rischio</b> dice quanto. Solo acquisti spot, senza prestito. Lo stop nasce dal budget di perdita che accetti, non dal grafico: usa il calcolatore qui sotto.</li>
+    </ol>
+  </section>
+
   <section class="summary" aria-live="polite">
     <p id="summary">Carico i segnali…</p>
+  </section>
+
+  <section aria-labelledby="h-rank">
+    <div class="sec-head">
+      <h2 id="h-rank">Classifica della tesi</h2>
+      <p class="hint" id="rank-note">Dal dossier del 12 ottobre 2026. Per salire di fascia un token deve portare prove: un dato mancante non vale zero, ma neppure conta a favore.</p>
+    </div>
+    <div class="tiers" id="tiers"></div>
   </section>
 
   <section class="board" aria-labelledby="h-board">
     <div class="sec-head">
       <h2 id="h-board">Quadro segnali</h2>
-      <p class="hint">Clicca un token per vedere i trigger. La rotaia va dall'invalidazione (sinistra) al breakout (destra); la fascia è la zona d'ingresso.</p>
+      <p class="hint">Tocca un token per vedere perché ha quel segnale. La barra va dal livello d'invalidazione (sinistra) al breakout (destra); la fascia azzurra è la zona d'ingresso, il trattino è il prezzo live.</p>
     </div>
-    <div class="filters" role="group" aria-label="Filtra per stato">
+    <div class="filters" role="group" aria-label="Filtra">
       <button class="chip on" data-f="tutti">Tutti</button>
       <button class="chip" data-f="attivi">Solo segnali attivi</button>
-      <button class="chip" data-f="core">Solo paniere core</button>
+      <button class="chip" data-f="f1">Solo prima fascia</button>
     </div>
     <div id="rows" class="rows"></div>
   </section>
 
+  <section class="calc" aria-labelledby="h-calc">
+    <div class="sec-head">
+      <h2 id="h-calc">Calcolatore del rischio</h2>
+      <p class="hint">Decidi prima quanto sei disposto a perdere: lo stop si ricava da lì. Esempio del dossier: 15.000 $ di capitale, 500 $ tenuti per i costi, 3.500 $ di perdita sui prezzi, stop al 24,14% sotto il prezzo medio.</p>
+    </div>
+    <form class="calc-form" id="calc" onsubmit="return false">
+      <label>Token<select id="c-tok"></select></label>
+      <label>Capitale da investire ($)<input id="c-cap" type="number" min="0" step="100" value="15000" inputmode="decimal"></label>
+      <label>Riserva per costi ($)<input id="c-cost" type="number" min="0" step="50" value="500" inputmode="decimal"></label>
+      <label>Perdita massima sui prezzi ($)<input id="c-loss" type="number" min="0" step="100" value="3500" inputmode="decimal"></label>
+    </form>
+    <div class="calc-out" id="calc-out" aria-live="polite"></div>
+  </section>
+
   <section aria-labelledby="h-cal">
     <div class="sec-head">
-      <h2 id="h-cal">Calendario catalizzatori</h2>
-      <p class="hint">Upgrade, unlock, voti di governance e listing. Gli unlock tolgono un punto al segnale nei tre giorni precedenti; il taglio delle emissioni di Render ne aggiunge uno nei dieci giorni precedenti.</p>
+      <h2 id="h-cal">Calendario degli eventi</h2>
+      <p class="hint">Aggiornamenti tecnici, sblocchi di token, voti e quotazioni. Uno sblocco toglie un punto al segnale nei tre giorni precedenti; il taglio delle emissioni di Render ne aggiunge uno nei dieci giorni precedenti.</p>
     </div>
     <div class="cal-ctl">
       <label>Token <select id="cal-tok"><option value="">tutti</option></select></label>
@@ -57,8 +88,8 @@
 
   <section aria-labelledby="h-log">
     <div class="sec-head">
-      <h2 id="h-log">Storico segnali</h2>
-      <p class="hint">Ogni segnale di acquisto apre una posizione simulata da 100 $. Si chiude su segnale di uscita, stop (invalidazione o -15%), trailing 12% dopo +25%, oppure dopo 30 giorni.</p>
+      <h2 id="h-log">Storico dei segnali</h2>
+      <p class="hint">Ogni segnale d'acquisto apre una posizione simulata da 100 $, spot e senza leva. Si chiude su segnale d'uscita, sullo stop (invalidazione o −24%), con un trailing del 12% dopo +25%, oppure dopo 30 giorni. MFE e MAE sono il miglior e il peggior momento della posizione.</p>
     </div>
     <div id="paper" class="paper"></div>
     <div class="tbl-wrap"><table class="log" id="log">
@@ -68,31 +99,53 @@
   </section>
 
   <section class="method" aria-labelledby="h-met">
-    <h2 id="h-met">Come nasce un segnale</h2>
+    <h2 id="h-met">Il metodo, in breve</h2>
     <div class="cols">
       <div>
-        <h3>Il punteggio</h3>
-        <p>Ogni componente aggiunge o toglie un punto: trend (EMA20/EMA50 giornaliere), momentum (RSI14 sotto 30 o sopra 75), volume anomalo, livelli (zona d'ingresso, breakout, invalidazione −2), derivati (funding e open interest), on-chain (flussi verso gli exchange, holder, supply, spesa sulla rete), catalizzatori e macro (BTC sopra o sotto EMA50, Fear &amp; Greed).</p>
+        <h3>Dal cliente al token</h3>
+        <p>Una tesi regge solo se la catena è completa: il servizio è <b>utile</b>, qualcuno lo <b>paga</b> con soldi propri, resta un <b>margine</b> dopo i fornitori, i costi lasciano un <b>utile</b>, una regola porta il beneficio al <b>token</b>, e il <b>prezzo</b> non sconta già tutto. Saltare l'ultimo passaggio trasforma una buona impresa in un cattivo investimento nel token.</p>
       </div>
       <div>
-        <h3>Gli stati</h3>
-        <p><b class="st st-ENTRATA">Entrata</b> punteggio ≥ 3 sui token core. <b class="st st-ACCUMULO">Accumulo</b> prezzo in zona e punteggio ≥ 1 sui core. <b class="st st-SETUP">Setup tattico</b> punteggio ≥ 4 su token fuori dal paniere. <b class="st st-RIDUCI">Riduci</b> punteggio ≤ −2. <b class="st st-USCITA">Uscita</b> punteggio ≤ −3 o prezzo sotto invalidazione. Il resto è <b class="st st-ATTESA">Attesa</b>.</p>
+        <h3>Il prezzo dipende anche dall'offerta</h3>
+        <p>Prezzo = valore di mercato ÷ token in circolazione. Se ogni anno si aggiunge il 12% di token, a valore invariato il prezzo scende di circa il 10%. Per questo ogni scheda mostra la diluizione annua. Un'offerta fissa aiuta, ma non protegge da un calo del valore.</p>
+      </div>
+      <div>
+        <h3>Il segnale</h3>
+        <p>Ogni elemento aggiunge o toglie un punto: tendenza (medie a 20 e 50 giorni), slancio (RSI), volumi anomali, livelli di prezzo, derivati (funding e open interest), dati on-chain, offerta, calendario e mercato. <b class="st st-ENTRATA">Entrata</b> da +3 in prima fascia; <b class="st st-ACCUMULO">Accumulo</b> in zona d'ingresso; <b class="st st-SETUP">Setup tattico</b> da +4 in seconda fascia; <b class="st st-RIDUCI">Riduci</b> da −2; <b class="st st-USCITA">Uscita</b> da −3 o sotto l'invalidazione.</p>
       </div>
       <div>
         <h3>Fonti e limiti</h3>
-        <p>Prezzi live da Coinbase nel browser; ogni 15 minuti GitHub Actions legge Coinbase, Kraken, DefiLlama, Hyperliquid, OKX, Blockscout, Solana, Akash, il nodo Gonka e GitHub. Nessuna API a pagamento: i flussi on-chain coprono solo le ultime 50 transazioni e gli exchange etichettati. Il prezzo live che rompe un livello va confermato dalla scansione successiva.</p>
+        <p>Prezzi live da Coinbase nel tuo browser. Ogni 15 minuti GitHub Actions legge Coinbase, Kraken, DefiLlama, Hyperliquid, OKX, Blockscout, Solana, Akash, il nodo Gonka e GitHub; nessuna fonte a pagamento. I flussi verso gli exchange coprono solo gli indirizzi etichettati. Un prezzo live che rompe un livello va confermato dalla scansione successiva.</p>
       </div>
     </div>
-    <p class="disclaimer">Strumento di analisi sistematica, non consulenza finanziaria personalizzata. Nessun segnale è una certezza: senza convergenza dei trigger la risposta corretta è non operare.</p>
+
+    <details class="gloss">
+      <summary>Glossario</summary>
+      <dl>
+        <dt>Spesa</dt><dd>Quanto pagano i clienti per il servizio. Spesso finisce quasi tutta ai fornitori: non è l'utile del protocollo.</dd>
+        <dt>Ricavi del protocollo</dt><dd>La quota che resta al protocollo secondo la fonte; va sempre controllato cosa include.</dd>
+        <dt>Run-rate</dt><dd>Un periodo breve moltiplicato per l'anno. È una velocità, non un incasso già avvenuto.</dd>
+        <dt>Burn</dt><dd>Token tolti dalla circolazione. Conta solo il saldo con i token nuovi emessi nello stesso periodo.</dd>
+        <dt>Remint</dt><dd>Token rimessi in circolazione per pagare i fornitori; può annullare il burn.</dd>
+        <dt>Sblocco (unlock)</dt><dd>Token già creati che diventano vendibili: aumentano il circolante senza cambiare il massimo.</dd>
+        <dt>Buyback</dt><dd>Riacquisto di token. Aiuta i possessori solo se è pagato dagli utili e i token non tornano in circolo.</dd>
+        <dt>FDV</dt><dd>Valore di tutti i token, anche quelli non ancora in circolazione, al prezzo di oggi.</dd>
+        <dt>Funding</dt><dd>Costo pagato da chi è a leva. Molto positivo vuol dire troppi acquirenti a leva; negativo, troppi venditori.</dd>
+        <dt>Open interest</dt><dd>Valore delle posizioni a leva aperte. Se sale in fretta con funding alto, il rischio di una discesa brusca cresce.</dd>
+        <dt>Invalidazione</dt><dd>Il prezzo sotto cui l'idea d'ingresso non vale più.</dd>
+        <dt>Leva</dt><dd>Comprare con denaro preso a prestito. Costa ogni giorno e può chiudere la posizione prima dello stop: qui non si usa.</dd>
+      </dl>
+    </details>
+    <p class="disclaimer">Strumento di analisi sistematica, non consulenza finanziaria personalizzata. Nessun segnale è una certezza: senza convergenza dei trigger la risposta corretta è non operare. Diversificare tra questi nove token non elimina il rischio comune del settore crypto e AI.</p>
   </section>
 </main>
 
 <footer class="foot">
-  <p>Dati: Coinbase, Kraken, DefiLlama, Hyperliquid, OKX, Blockscout, Solana RPC, Akash Console, Gonka, GitHub, alternative.me, CoinPaprika. Orari in Europe/Zurich. <a href="https://github.com/onlywave/ai-crypto-radar">Codice e metodo su GitHub</a>.</p>
+  <p>Dati: Coinbase, Kraken, DefiLlama, Hyperliquid, OKX, Blockscout, Solana RPC, Akash Console, Gonka, GitHub, alternative.me, CoinPaprika. Orari Europe/Zurich. <a href="https://github.com/onlywave/ai-crypto-radar">Codice e metodo su GitHub</a>.</p>
 </footer>
 
 <template id="tpl-row">
-  <article class="row" tabindex="0">
+  <article class="row">
     <button class="row-main" aria-expanded="false">
       <span class="tk"><b class="sym"></b><span class="nm"></span></span>
       <span class="px"><span class="price"></span><span class="chg"></span></span>
@@ -105,6 +158,6 @@
   </article>
 </template>
 
-<script src="assets/app.js?v=3"></script>
+<script src="assets/app.js?v=4"></script>
 </body>
 </html>

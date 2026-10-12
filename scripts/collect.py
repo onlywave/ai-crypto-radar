@@ -451,6 +451,16 @@ def evaluate(tok, m, d, oc, macro):
         when = "oggi" if abs(days) < 1 else (f"tra {days:.0f} giorni" if days > 0 else "ieri")
         add("catalizzatori", e["effetto"], f"{e['evento']} ({when})")
 
+    # offerta (dossier: prezzo = valore di mercato / offerta)
+    circ, nuova = tok.get("circolante"), tok.get("nuova_offerta")
+    if circ and nuova is not None:
+        dil = nuova / circ
+        if nuova == 0:
+            add("offerta", 1, "Offerta fissa: nessuna nuova emissione di token")
+        elif dil > 0.10:
+            fall = (1 / (1 + dil) - 1) * 100
+            add("offerta", -1, f"Diluizione {dil*100:.0f}% l'anno: a valore invariato il prezzo scende del {abs(fall):.0f}%")
+
     # macro
     if macro.get("btc_sotto_ema50"):
         add("macro", -1, "BTC sotto EMA50 giornaliera: regime risk-off")
@@ -466,14 +476,17 @@ def evaluate(tok, m, d, oc, macro):
         stato = "USCITA"
     elif score <= -2:
         stato = "RIDUCI"
-    elif gate == "core" and score >= 3:
+    elif gate == "fascia1" and score >= 3:
         stato = "ENTRATA"
-    elif gate == "core" and in_zone and score >= 1:
+    elif gate == "fascia1" and in_zone and score >= 1:
         stato = "ACCUMULO"
-    elif gate != "core" and score >= 4:
+    elif gate == "fascia2" and score >= 4:
         stato = "SETUP TATTICO"
     else:
         stato = "ATTESA"
+    nota_fascia = None
+    if gate == "fascia3" and score >= 4:
+        nota_fascia = "Timing favorevole, ma il token è 'da verificare': nessun segnale d'acquisto finché la tesi non migliora."
 
     sources = ["trend", "momentum", "livelli"]
     have = [m.get("ema50") is not None, r is not None, True]
@@ -482,7 +495,7 @@ def evaluate(tok, m, d, oc, macro):
     if tok["onchain"]["type"] != "none":
         sources.append("onchain"); have.append(bool(oc))
     cop = round(100 * sum(have) / len(have))
-    return {"stato": stato, "score": score, "reasons": reasons, "componenti": comp,
+    return {"stato": stato, "score": score, "reasons": reasons, "componenti": comp, "nota_fascia": nota_fascia,
             "in_zona": in_zone, "sotto_invalidazione": broke, "copertura": cop}
 
 
@@ -490,6 +503,7 @@ def evaluate(tok, m, d, oc, macro):
 LOG_PATH = DATA / "signals_log.json"
 LOG = json.loads(LOG_PATH.read_text()) if LOG_PATH.exists() else {"segnali": []}
 BUY = {"ENTRATA", "ACCUMULO", "SETUP TATTICO"}
+STOP_BUDGET = 0.2414  # dossier: budget di perdita 3.500 $ su 14.500 $ di posizione spot
 SELL = {"USCITA", "RIDUCI"}
 
 
@@ -523,7 +537,7 @@ def update_log(sym, sig, price, invalid):
             event = {"tipo": "chiusura", "token": sym, "rend_pct": s["rend_pct"], "motivo": reason}
     still_open = any(s["token"] == sym and s["esito"] == "APERTO" for s in LOG["segnali"])
     if sig["stato"] in BUY and not still_open:
-        stop = max(invalid, price * 0.85)
+        stop = max(invalid, price * (1 - STOP_BUDGET))
         LOG["segnali"].append({
             "id": f"{sym}-{NOW_TS}", "token": sym, "stato": sig["stato"], "t": NOW_TS,
             "data": NOW.isoformat(timespec="minutes"), "prezzo": price, "stop": round(stop, 8),
@@ -673,12 +687,41 @@ def main():
             "parts": oc.get("partecipanti") if oc else None,
         })
 
+        # economia del token con il prezzo corrente (dossier: flussi, offerta, valutazione)
+        eco = {}
+        circ, nuova = tok.get("circolante"), tok.get("nuova_offerta")
+        if price and circ:
+            mcap = price * circ
+            ric = (fees or {}).get("ricavi_annui_usd")
+            if tok["sym"] == "AKT" and oc and oc.get("spesa_giorno_usd"):
+                ric_live = oc["spesa_giorno_usd"] * 365
+            else:
+                ric_live = None
+            ric_usd = ric_live or ric or tok["fund"]["ricavi_m"] * 1e6
+            fonte = "spesa on-chain di oggi ×365" if ric_live else ("DefiLlama, ultimi 30 giorni annualizzati" if ric else "stima del dossier")
+            emis = (nuova or 0) * price
+            eco = {
+                "mcap_usd": mcap,
+                "ricavi_annui_usd": ric_usd,
+                "fonte_ricavi": fonte,
+                "mcap_su_ricavi": mcap / ric_usd if ric_usd else None,
+                "emissioni_annue_usd": emis,
+                "copertura_emissioni_pct": (ric_usd / emis * 100) if emis else None,
+                "diluizione_pct": (nuova / circ * 100) if nuova is not None else None,
+                "prezzo_a_valore_invariato_pct": ((1 / (1 + nuova / circ) - 1) * 100) if nuova else 0.0,
+                "stock_transazionale_30g_usd": ric_usd * 30 / 365 if ric_usd else None,
+            }
+
         out_tokens.append({
             "sym": sym, "name": tok["name"], "gate": tok["gate"], "verdetto": tok["verdetto"],
+            "fascia": tok.get("fascia"), "rank": tok.get("rank"), "motivo": tok.get("motivo"), "limite": tok.get("limite"),
+            "catena": tok.get("catena"), "prove": tok.get("prove"), "promuove": tok.get("promuove"),
+            "declassa": tok.get("declassa"), "verifiche": tok.get("verifiche"), "kraken": tok.get("kraken"),
+            "nota_offerta": tok.get("nota_offerta"),
             "coinbase": tok.get("coinbase"), "cg": tok["cg"], "hl": tok.get("hl"),
             "levels": tok["levels"], "fund": tok["fund"], "trigger_fondamentale": tok["trigger_fondamentale"],
             "canali": tok["canali"], "mercato": m, "derivati": d, "onchain": oc, "fees": fees,
-            "release": rel, "segnale": sig,
+            "release": rel, "segnale": sig, "economia": eco,
         })
 
     # riepilogo paper
@@ -701,7 +744,9 @@ def main():
         "paper": paper,
         "eventi_run": events,
         "errori": ERRORS[-40:],
-        "versione": 1,
+        "dossier": CFG.get("dossier"),
+        "stop_budget_pct": STOP_BUDGET * 100,
+        "versione": 2,
     }
     (DATA / "latest.json").write_text(json.dumps(latest, ensure_ascii=False, separators=(",", ":")))
     HIST_PATH.write_text(json.dumps(HIST, separators=(",", ":")))
