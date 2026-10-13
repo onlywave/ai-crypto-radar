@@ -12,12 +12,35 @@
    "min": 0.3945,
    "mfe_pct": 0.32,
    "mae_pct": -3.4,
-   "ultimo": 0.4097,
-   "rend_pct": 0.32,
+   "ultimo": 0.4069,
+   "rend_pct": -0.37,
    "score": 3,
    "motivi": [
     "Trend rialzista: prezzo sopra EMA50 e EMA20 > EMA50",
     "Deflussi netti dagli exchange 10k $ (accumulo)",
+    "Offerta fissa: nessuna nuova emissione di token"
+   ],
+   "esito": "APERTO"
+  },
+  {
+   "id": "RLC-1791930771",
+   "token": "RLC",
+   "stato": "SETUP TATTICO",
+   "t": 1791930771,
+   "data": "2026-10-13T22:32+00:00",
+   "prezzo": 0.895,
+   "stop": 0.678947,
+   "max": 0.895,
+   "min": 0.895,
+   "mfe_pct": 0.0,
+   "mae_pct": 0.0,
+   "ultimo": 0.895,
+   "rend_pct": 0.0,
+   "score": 4,
+   "motivi": [
+    "Trend rialzista: prezzo sopra EMA50 e EMA20 > EMA50",
+    "Prezzo in zona d'ingresso 0.87–0.91",
+    "Deflussi netti dagli exchange 16k $ (accumulo)",
     "Offerta fissa: nessuna nuova emissione di token"
    ],
    "esito": "APERTO"
