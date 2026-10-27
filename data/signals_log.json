@@ -12,8 +12,8 @@
    "min": 0.358,
    "mfe_pct": 10.11,
    "mae_pct": -12.34,
-   "ultimo": 0.358,
-   "rend_pct": -12.34,
+   "ultimo": 0.3635,
+   "rend_pct": -10.99,
    "score": 3,
    "motivi": [
     "Trend rialzista: prezzo sopra EMA50 e EMA20 > EMA50",
@@ -59,8 +59,8 @@
    "min": 0.6414,
    "mfe_pct": 15.06,
    "mae_pct": -1.31,
-   "ultimo": 0.6829,
-   "rend_pct": 5.08,
+   "ultimo": 0.6782,
+   "rend_pct": 4.35,
    "score": 2,
    "motivi": [
     "Trend rialzista: prezzo sopra EMA50 e EMA20 > EMA50",
@@ -80,8 +80,8 @@
    "min": 1.6721,
    "mfe_pct": 7.57,
    "mae_pct": -9.17,
-   "ultimo": 1.7125,
-   "rend_pct": -6.97,
+   "ultimo": 1.6978,
+   "rend_pct": -7.77,
    "score": 3,
    "motivi": [
     "Trend rialzista: prezzo sopra EMA50 e EMA20 > EMA50",
