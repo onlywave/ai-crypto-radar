@@ -84,8 +84,8 @@
    "min": 1.468,
    "mfe_pct": 7.57,
    "mae_pct": -20.26,
-   "ultimo": 1.468,
-   "rend_pct": -20.26,
+   "ultimo": 1.536,
+   "rend_pct": -16.56,
    "score": 3,
    "motivi": [
     "Trend rialzista: prezzo sopra EMA50 e EMA20 > EMA50",
