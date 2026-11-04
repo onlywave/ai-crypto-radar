@@ -9,18 +9,20 @@
    "prezzo": 0.4084,
    "stop": 0.30981224,
    "max": 0.4497,
-   "min": 0.3344,
+   "min": 0.3261,
    "mfe_pct": 10.11,
-   "mae_pct": -18.12,
-   "ultimo": 0.3361,
-   "rend_pct": -17.7,
+   "mae_pct": -20.15,
+   "ultimo": 0.3261,
+   "rend_pct": -20.15,
    "score": 3,
    "motivi": [
     "Trend rialzista: prezzo sopra EMA50 e EMA20 > EMA50",
     "Deflussi netti dagli exchange 10k $ (accumulo)",
     "Offerta fissa: nessuna nuova emissione di token"
    ],
-   "esito": "APERTO"
+   "esito": "CHIUSO",
+   "chiusura": "2026-11-04T02:39+00:00",
+   "motivo_chiusura": "segnale RIDUCI"
   },
   {
    "id": "RLC-1791930771",
@@ -56,17 +58,19 @@
    "prezzo": 0.6499,
    "stop": 0.49301414,
    "max": 0.7478,
-   "min": 0.591,
+   "min": 0.5883,
    "mfe_pct": 15.06,
-   "mae_pct": -9.06,
-   "ultimo": 0.6034,
-   "rend_pct": -7.15,
+   "mae_pct": -9.48,
+   "ultimo": 0.5883,
+   "rend_pct": -9.48,
    "score": 2,
    "motivi": [
     "Trend rialzista: prezzo sopra EMA50 e EMA20 > EMA50",
     "Prezzo in zona d'ingresso 0.63–0.65"
    ],
-   "esito": "APERTO"
+   "esito": "CHIUSO",
+   "chiusura": "2026-11-04T02:39+00:00",
+   "motivo_chiusura": "segnale RIDUCI"
   },
   {
    "id": "RENDER-1792037688",
@@ -77,11 +81,11 @@
    "prezzo": 1.8409,
    "stop": 1.39650674,
    "max": 1.9802,
-   "min": 1.4916,
+   "min": 1.468,
    "mfe_pct": 7.57,
-   "mae_pct": -18.97,
-   "ultimo": 1.5056,
-   "rend_pct": -18.21,
+   "mae_pct": -20.26,
+   "ultimo": 1.468,
+   "rend_pct": -20.26,
    "score": 3,
    "motivi": [
     "Trend rialzista: prezzo sopra EMA50 e EMA20 > EMA50",
