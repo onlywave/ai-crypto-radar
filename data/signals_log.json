@@ -84,8 +84,8 @@
    "min": 1.468,
    "mfe_pct": 7.57,
    "mae_pct": -20.26,
-   "ultimo": 1.5808,
-   "rend_pct": -14.13,
+   "ultimo": 1.608,
+   "rend_pct": -12.65,
    "score": 3,
    "motivi": [
     "Trend rialzista: prezzo sopra EMA50 e EMA20 > EMA50",
@@ -102,15 +102,36 @@
    "data": "2026-11-04T17:54+00:00",
    "prezzo": 0.6263,
    "stop": 0.49,
-   "max": 0.6263,
+   "max": 0.6498,
    "min": 0.6263,
-   "mfe_pct": 0.0,
+   "mfe_pct": 3.75,
    "mae_pct": 0.0,
-   "ultimo": 0.6263,
-   "rend_pct": 0.0,
+   "ultimo": 0.6498,
+   "rend_pct": 3.75,
    "score": 1,
    "motivi": [
     "Prezzo in zona d'ingresso 0.63–0.65"
+   ],
+   "esito": "APERTO"
+  },
+  {
+   "id": "TRAC-1793834981",
+   "token": "TRAC",
+   "stato": "ACCUMULO",
+   "t": 1793834981,
+   "data": "2026-11-04T23:29+00:00",
+   "prezzo": 0.3481,
+   "stop": 0.295,
+   "max": 0.3481,
+   "min": 0.3481,
+   "mfe_pct": 0.0,
+   "mae_pct": 0.0,
+   "ultimo": 0.3481,
+   "rend_pct": 0.0,
+   "score": 1,
+   "motivi": [
+    "Prezzo in zona d'ingresso 0.34–0.37",
+    "Offerta fissa: nessuna nuova emissione di token"
    ],
    "esito": "APERTO"
   }
