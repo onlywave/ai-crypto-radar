@@ -84,13 +84,33 @@
    "min": 1.468,
    "mfe_pct": 7.57,
    "mae_pct": -20.26,
-   "ultimo": 1.536,
-   "rend_pct": -16.56,
+   "ultimo": 1.5808,
+   "rend_pct": -14.13,
    "score": 3,
    "motivi": [
     "Trend rialzista: prezzo sopra EMA50 e EMA20 > EMA50",
     "Prezzo in zona d'ingresso 1.76–1.86",
     "Supply in calo nelle 24h (-6120 token): burn netto"
+   ],
+   "esito": "APERTO"
+  },
+  {
+   "id": "AKT-1793814874",
+   "token": "AKT",
+   "stato": "ACCUMULO",
+   "t": 1793814874,
+   "data": "2026-11-04T17:54+00:00",
+   "prezzo": 0.6263,
+   "stop": 0.49,
+   "max": 0.6263,
+   "min": 0.6263,
+   "mfe_pct": 0.0,
+   "mae_pct": 0.0,
+   "ultimo": 0.6263,
+   "rend_pct": 0.0,
+   "score": 1,
+   "motivi": [
+    "Prezzo in zona d'ingresso 0.63–0.65"
    ],
    "esito": "APERTO"
   }
