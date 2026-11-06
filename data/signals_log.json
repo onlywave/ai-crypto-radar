@@ -84,8 +84,8 @@
    "min": 1.468,
    "mfe_pct": 7.57,
    "mae_pct": -20.26,
-   "ultimo": 1.5236,
-   "rend_pct": -17.24,
+   "ultimo": 1.5645,
+   "rend_pct": -15.01,
    "score": 3,
    "motivi": [
     "Trend rialzista: prezzo sopra EMA50 e EMA20 > EMA50",
@@ -128,8 +128,8 @@
    "min": 0.3266,
    "mfe_pct": 1.32,
    "mae_pct": -6.18,
-   "ultimo": 0.3367,
-   "rend_pct": -3.27,
+   "ultimo": 0.3479,
+   "rend_pct": -0.06,
    "score": 1,
    "motivi": [
     "Prezzo in zona d'ingresso 0.34–0.37",
