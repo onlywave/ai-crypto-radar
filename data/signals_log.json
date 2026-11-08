@@ -84,8 +84,8 @@
    "min": 1.468,
    "mfe_pct": 7.57,
    "mae_pct": -20.26,
-   "ultimo": 1.5525,
-   "rend_pct": -15.67,
+   "ultimo": 1.5535,
+   "rend_pct": -15.61,
    "score": 3,
    "motivi": [
     "Trend rialzista: prezzo sopra EMA50 e EMA20 > EMA50",
@@ -128,8 +128,8 @@
    "min": 0.3266,
    "mfe_pct": 1.32,
    "mae_pct": -6.18,
-   "ultimo": 0.3377,
-   "rend_pct": -2.99,
+   "ultimo": 0.3447,
+   "rend_pct": -0.98,
    "score": 1,
    "motivi": [
     "Prezzo in zona d'ingresso 0.34–0.37",
@@ -146,17 +146,19 @@
    "prezzo": 0.6557,
    "stop": 0.49741402,
    "max": 0.6557,
-   "min": 0.629,
+   "min": 0.6229,
    "mfe_pct": 0.0,
-   "mae_pct": -4.07,
-   "ultimo": 0.629,
-   "rend_pct": -4.07,
+   "mae_pct": -5.0,
+   "ultimo": 0.6229,
+   "rend_pct": -5.0,
    "score": 1,
    "motivi": [
     "Trend rialzista: prezzo sopra EMA50 e EMA20 > EMA50",
     "Prezzo in zona d'ingresso 0.63–0.65"
    ],
-   "esito": "APERTO"
+   "esito": "CHIUSO",
+   "chiusura": "2026-11-08T19:54+00:00",
+   "motivo_chiusura": "segnale RIDUCI"
   }
  ]
 }
