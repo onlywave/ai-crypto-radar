@@ -84,15 +84,17 @@
    "min": 1.468,
    "mfe_pct": 7.57,
    "mae_pct": -20.26,
-   "ultimo": 1.56,
-   "rend_pct": -15.26,
+   "ultimo": 1.5797,
+   "rend_pct": -14.19,
    "score": 3,
    "motivi": [
     "Trend rialzista: prezzo sopra EMA50 e EMA20 > EMA50",
     "Prezzo in zona d'ingresso 1.76–1.86",
     "Supply in calo nelle 24h (-6120 token): burn netto"
    ],
-   "esito": "APERTO"
+   "esito": "CHIUSO",
+   "chiusura": "2026-11-10T12:25+00:00",
+   "motivo_chiusura": "segnale RIDUCI"
   },
   {
    "id": "AKT-1793814874",
